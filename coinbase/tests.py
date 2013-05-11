@@ -27,6 +27,7 @@ class OrderTests(TestCase):
             transaction_hash="foo",
             transaction_confirmations="foo"
         )
+        # pylint: disable=C0301
         self.notification_data = {
             "order": {
                 "id": "5RTQNACF",
