@@ -23,7 +23,7 @@ pip install it in your virtualenv. Next you'll want to add `coinbase` to your
 add a urls include to your main `urls.py` file for `coinbase.urls`.
 
 There is a signal that you can setup a receiver for in your own project to do
-something with the callback data:
+something with the callback data::
 
     @receiver(order_received)
     def handle_order_received(sender, order, **kwargs):
@@ -47,7 +47,7 @@ This is the URL of your site + wherever you rooted the urls include + `/cb/`
 followed with the querystring parameter `secret` followed by the value of this
 settings.
 
-For example:
+For example::
 
     # urls.py
     url(r"^payments/", include("coinbase.urls"))
