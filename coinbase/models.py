@@ -40,7 +40,7 @@ class Order(models.Model):
         )
         verified = response.json()["order"]
         defaults = dict(
-            completed_at=verified["completed_at"],
+            completed_at=verified["created_at"],
             status=verified["status"],
             satoshi=verified["total_btc"]["cents"],
             cents=verified["total_native"]["cents"],

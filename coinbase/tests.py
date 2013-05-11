@@ -3,6 +3,8 @@ import decimal
 from django.test import TestCase
 from django.utils import timezone
 
+from mock import patch
+
 from .models import Order
 
 
@@ -25,6 +27,33 @@ class OrderTests(TestCase):
             transaction_hash="foo",
             transaction_confirmations="foo"
         )
+        self.notification_data = {
+            "order": {
+                "id": "5RTQNACF",
+                "created_at": "2012-12-09T21:23:41-08:00",
+                "status": "completed",
+                "total_btc": {
+                    "cents": 100000000,
+                    "currency_iso": "BTC"
+                },
+                "total_native": {
+                    "cents": 1253,
+                    "currency_iso": "USD"
+                },
+                "custom": "order1234",
+                "button": {
+                    "type": "buy_now",
+                    "name": "Alpaca Socks",
+                    "description": "The ultimate in lightweight footwear",
+                    "id": "5d37a3b61914d6d0ad15b5135d80c19f"
+                },
+                "transaction": {
+                    "id": "514f18b7a5ea3d630a00000f",
+                    "hash": "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
+                    "confirmations": 0
+                }
+            }
+        }
     
     def test_satoshi_conversion(self):
         self.assertEquals(
@@ -38,8 +67,10 @@ class OrderTests(TestCase):
             self.order.total_native()
         )
     
-    def test_process_handling_normal_order_data(self):
-        self.fail()
-    
-    def test_signal_sent(self):
-        self.fail()
+    @patch("requests.get")
+    def test_process_handling_normal_order_data(self, GetMock):
+        GetMock.return_value.json.return_value = self.notification_data
+        order = Order.process(self.notification_data)
+        self.assertEquals(order.order_id, self.notification_data["order"]["id"])
+        self.assertEquals(order.satoshi, 100000000)
+        self.assertEquals(order.cents, 1253)
