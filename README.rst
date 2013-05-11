@@ -8,7 +8,59 @@ a Django app for receiving payment notifications from Coinbase
     :target: https://travis-ci.org/eldarion/django-coinbase
 
 
-Documentation can be found at http://django-coinbase.readthedocs.org
+Getting Started
+---------------
+
+This is a fairly simple app. It's three parts:
+
+1. Webhook View
+2. Model to store the webhook received data
+3. Signal emitted on reciept/validation/storage of webhook data
+
+First off, you'll want to add `django-coinbase` to your requirements.txt and
+pip install it in your virtualenv. Next you'll want to add `coinbase` to your
+`INSTALLED_APPS` setting of your `settings.py` file. Lastly, you'll want to
+add a urls include to your main `urls.py` file for `coinbase.urls`.
+
+There is a signal that you can setup a receiver for in your own project to do
+something with the callback data:
+
+    @receiver(order_received)
+    def handle_order_received(sender, order, **kwargs):
+        pass  # do something with the order object, like enable a feature based on order.custom contents
+
+You will want to set two different settings:
+
+COINBASE_API_KEY
+^^^^^^^^^^^^^^^^
+
+This is the API Key found at: https://coinbase.com/account/integrations
+
+
+COINBASE_SHARED_SECRET
+^^^^^^^^^^^^^^^^^^^^^^
+
+This is just a random key you make up and store in your settings and add to the
+querystring of the Instant Payment Notifications field (https://coinbase.com/merchant_settings).
+
+This is the URL of your site + wherever you rooted the urls include + `/cb/`
+followed with the querystring parameter `secret` followed by the value of this
+settings.
+
+For example:
+
+    # urls.py
+    url(r"^payments/", include("coinbase.urls"))
+    
+    # settings.py
+    COINBASE_SHARED_SECRET = "mysecretsauce"
+    
+    >>> Site.objects.get_current().domain
+    example.com
+    
+    # Your url would be
+    http://example.com/payments/cb/?secret=mysecretsauce
+
 
 
 Development
