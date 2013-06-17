@@ -36,7 +36,7 @@ class Order(models.Model):
             "https://coinbase.com/api/v1/orders/{0}".format(
                 data["order"]["id"]
             ),
-            api_key=settings.COINBASE_API_KEY
+            params={"api_key": settings.COINBASE_API_KEY}
         )
         verified = response.json()["order"]
         defaults = dict(
