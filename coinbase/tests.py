@@ -75,3 +75,12 @@ class OrderTests(TestCase):
         self.assertEquals(order.order_id, self.notification_data["order"]["id"])
         self.assertEquals(order.satoshi, 100000000)
         self.assertEquals(order.cents, 1253)
+
+    @patch("requests.get")
+    def test_process_handling_order_data_without_description(self, GetMock):
+        self.notification_data["order"]["button"]["description"] = None
+        GetMock.return_value.json.return_value = self.notification_data
+
+        order = Order.process(self.notification_data)
+        self.assertEquals(order.order_id, self.notification_data["order"]["id"])
+        self.assertIsNone(order.button_description)

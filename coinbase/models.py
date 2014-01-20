@@ -21,7 +21,7 @@ class Order(models.Model):
     custom = models.TextField(blank=True)
     button_type = models.CharField(max_length=100)
     button_name = models.CharField(max_length=200)
-    button_description = models.TextField(blank=True)
+    button_description = models.TextField(blank=True, null=True)
     button_id = models.CharField(max_length=32)
     transaction_id = models.CharField(max_length=24)
     transaction_hash = models.CharField(max_length=64)
