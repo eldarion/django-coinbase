@@ -83,3 +83,4 @@ class OrderTests(TestCase):
 
         order = Order.process(self.notification_data)
         self.assertEquals(order.order_id, self.notification_data["order"]["id"])
+        self.assertIsNone(order.button_description)
