@@ -4,8 +4,21 @@ django-coinbase
 
 a Django app for receiving payment notifications from Coinbase
 
-.. image:: https://travis-ci.org/eldarion/django-coinbase.png
+
+.. image:: https://img.shields.io/travis/eldarion/django-coinbase.svg
     :target: https://travis-ci.org/eldarion/django-coinbase
+
+.. image:: https://img.shields.io/coveralls/eldarion/django-coinbase.svg
+    :target: https://coveralls.io/r/eldarion/django-coinbase
+
+.. image:: https://img.shields.io/pypi/dm/django-coinbase.svg
+    :target:  https://pypi.python.org/pypi/django-coinbase/
+
+.. image:: https://img.shields.io/pypi/v/django-coinbase.svg
+    :target:  https://pypi.python.org/pypi/django-coinbase/
+
+.. image:: https://img.shields.io/badge/license-BSD-blue.svg
+    :target:  https://pypi.python.org/pypi/django-coinbase/
 
 
 Getting Started
