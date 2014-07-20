@@ -13,7 +13,11 @@ install:
   - pip install mock
   - pip install django-nose
   - pip install requests
+  - pip install coverage
+  - pip install python-coveralls
   - pip install .
 script:
   - flake8 .
-  - python runtests.py
+  - coverage run runtests.py
+after_script:
+  - coveralls
