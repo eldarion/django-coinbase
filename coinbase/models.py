@@ -26,10 +26,10 @@ class Order(models.Model):
     transaction_id = models.CharField(max_length=24)
     transaction_hash = models.CharField(max_length=64)
     transaction_confirmations = models.IntegerField()
-    
+
     data = JSONField()
     created_at = models.DateTimeField(default=timezone.now)
-    
+
     @classmethod
     def process(cls, data):
         response = requests.get(
@@ -64,9 +64,9 @@ class Order(models.Model):
             order.save()
         order_received.send(sender=Order, order=order)
         return order
-    
+
     def total_bitcoin(self):
         return decimal.Decimal(str(self.satoshi / 100000000.0))
-    
+
     def total_native(self):
         return decimal.Decimal(str(self.cents / 100.0))

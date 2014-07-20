@@ -9,7 +9,7 @@ from .models import Order
 
 
 class OrderTests(TestCase):
-    
+
     def setUp(self):
         self.order = Order(
             order_id="XXXXXX",
@@ -55,19 +55,19 @@ class OrderTests(TestCase):
                 }
             }
         }
-    
+
     def test_satoshi_conversion(self):
         self.assertEquals(
             decimal.Decimal("0.23324233"),
             self.order.total_bitcoin()
         )
-    
+
     def test_cents_conversion(self):
         self.assertEquals(
             decimal.Decimal("43.43"),
             self.order.total_native()
         )
-    
+
     @patch("requests.get")
     def test_process_handling_normal_order_data(self, GetMock):
         GetMock.return_value.json.return_value = self.notification_data
