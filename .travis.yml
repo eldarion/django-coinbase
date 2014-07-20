@@ -5,6 +5,7 @@ python:
 env:
   - DJANGO=1.4
   - DJANGO=1.5
+  - DJANGO=1.6
 install:
   - pip install flake8
   - pip install -q Django==$DJANGO
