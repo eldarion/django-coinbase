@@ -8,12 +8,12 @@ env:
   - DJANGO=1.6
 install:
   - pip install flake8
-  - pip install -q Django==$DJANGO
-  - pip install -q django-jsonfield==0.8.12
-  - pip install -q mock
-  - pip install -q django-nose
-  - pip install -q requests
-  - pip install -e .
+  - pip install Django==$DJANGO
+  - pip install django-jsonfield==0.8.12
+  - pip install mock
+  - pip install django-nose
+  - pip install requests
+  - pip install .
 script:
   - flake8 .
   - python runtests.py
